@@ -51,7 +51,6 @@ contract MyGovernorTest is Test {
     }
 
     function testGovernanceUpdatesBox() public {
-
         uint256 valueToStore = 777;
         string memory description = "Store custom value in the dao";
         bytes memory encodedFunctionCall = abi.encodeWithSignature("store(uint256)", valueToStore);
@@ -81,7 +80,7 @@ contract MyGovernorTest is Test {
 
         bytes32 descriptionHash = keccak256(abi.encodePacked(description));
         governor.queue(addressesToCall, values, functionCalls, descriptionHash);
-        
+
         vm.roll(block.number + MIN_DELAY + 1);
         vm.warp(block.timestamp + MIN_DELAY + 1);
         console.log("Proposal State:", uint256(governor.state(proposalId)));
